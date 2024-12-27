@@ -1,4 +1,5 @@
-#import "plotsy-3d.typ": *
+#import "@preview/plotsy-3d:0.1.0": *
+
 #let xfunc(t) = 15*calc.cos(t)
 #let yfunc(t) = calc.sin(t)
 #let zfunc(t) = t

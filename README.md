@@ -3,8 +3,6 @@
 
 **plotsy-3d** is a [Typst](https://github.com/typst/typst) package for rendering 3D objects built on top of [CeTZ](https://github.com/cetz-package/cetz). Similar functionality to pgfplots for LaTeX but currently less developed.
 
-Will be released on typst universe at some point but is not yet* so need to use `#import "plotsy-3d.typ": *` and have the `plotsy-3d.typ` file in your project folder.
-
 
 ## Features:
 
@@ -28,7 +26,7 @@ See **Usage** or `Examples/examples.typ` for the code
 A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
 ### Parametric Function Plotting
 ```typ
-#import "plotsy-3d.typ": *
+#import "@preview/plotsy-3d:0.1.0": *
 
 #let xfunc(t) = 15*calc.cos(t)
 #let yfunc(t) = calc.sin(t)
@@ -54,7 +52,7 @@ A more in-depth description of usage. Any template arguments? A complicated exam
 
 ### 3D Surface Plotting
 ```typ
-#import "plotsy-3d.typ": *
+#import "@preview/plotsy-3d:0.1.0": *
 
 #let size = 5
 #let scale_factor = 0.3x
@@ -98,4 +96,3 @@ A more in-depth description of usage. Any template arguments? A complicated exam
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date" />
  </picture>
 </a>
-[![Star History Chart](https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date)](https://star-history.com/#misskacie/plotsy-3d&Date)
