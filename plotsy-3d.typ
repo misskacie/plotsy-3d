@@ -313,7 +313,7 @@
   axis_step: (5,5,5),
   dot_thickness: 0.05em,
   front_axis_thickness: 0.1em,
-  front_axis_dot_scale: (0.5em, 1em),
+  front_axis_dot_scale: (0.5, 1),
   rear_axis_dot_scale: (0.08,0.08),
   rear_axis_text_size: 0.5em,
   axis_label_size: 1.5em,
@@ -422,6 +422,8 @@
   rear_axis_dot_scale: (0.08,0.08),
   rear_axis_text_size: 0.5em,
   axis_label_size: 1.5em,
+  axis_label_offset: (0.3,0.2,0.15),
+  axis_text_offset: 0.075,
   rotation_matrix: ((-2, 2, 4), (0, -1, 0))
   ) = {
     context[#canvas({
