@@ -22,27 +22,6 @@ See **Usage** or `Examples/examples.typ` for the code
 - [ ] Surface plotting over non square regions
 - [ ] User Manual
 - [ ] Make the code nicer
-<!-- 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
-
-```typ
-#import "@preview/plotsy-3d:0.1.0": *
-
-#show: my-show-rule.with()
-#my-func()
-```
-
-### Installation
-
-A step by step guide that will tell you how to get the development environment up and running. This should example how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
-
-```
-$ First step
-$ Another step
-$ Final step
-``` -->
 
 ## Usage
 
@@ -50,10 +29,12 @@ A more in-depth description of usage. Any template arguments? A complicated exam
 ### Parametric Function Plotting
 ```typ
 #import "plotsy-3d.typ": *
-== Parametric Curve
-$ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
-#figure(
-  plot_3d_parametric_curve(
+
+#let xfunc(t) = 15*calc.cos(t)
+#let yfunc(t) = calc.sin(t)
+#let zfunc(t) = t
+
+#plot_3d_parametric_curve(
     xfunc,
     yfunc,
     zfunc,
@@ -68,15 +49,12 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
     rear_axis_text_size: 0.5em,
     axis_label_size: 1.5em,
     rotation_matrix: ((-2, 2, 4), (0, -1, 0)) 
-  )
 )
 ```
 
 ### 3D Surface Plotting
 ```typ
 #import "plotsy-3d.typ": *
-== 3D Surface 
-$ z=y sin(x) - x cos(y) $
 
 #let size = 5
 #let scale_factor = 0.3x
@@ -87,8 +65,7 @@ $ z=y sin(x) - x cos(y) $
   return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
 }
 
-#figure(
-  plot_3d_surface(
+#plot_3d_surface(
     func,
     color_func: color_func,
     subdivisions: 5,
@@ -100,7 +77,6 @@ $ z=y sin(x) - x cos(y) $
     pad_low: (0,0,0),
     axis_label_offset: (0.2,0.1,0.1),
     axis_text_offset: 0.045,
-  )
 )
 ```
 
@@ -113,3 +89,13 @@ $ z=y sin(x) - x cos(y) $
 </h1>
 
 
+## Star History
+
+<a href="https://star-history.com/#misskacie/plotsy-3d&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date" />
+ </picture>
+</a>
+[![Star History Chart](https://api.star-history.com/svg?repos=misskacie/plotsy-3d&type=Date)](https://star-history.com/#misskacie/plotsy-3d&Date)
