@@ -145,8 +145,12 @@ For custom combinations of plots and lines, you can make a copy of the relevant 
 
 <p>
     <img src="examples/examples9.png" style="width:49%" >
+    <img src="examples/examples10.png" style="width:49%" >
 
 </p>
+
+## Build Examples
+`typst compile examples/examples.typ --root . examples/examples{p}.png`
 
 ## Star History
 
@@ -165,3 +169,4 @@ Initial release
 * 3D Function plotting of the form  `z = f(x,y)`
 * Parametric curve plotting of the form `x(t), y(t), z(t)`
 * Parametric function plotting of the form `x(u,v), y(u,v), z(u,v)`
+
