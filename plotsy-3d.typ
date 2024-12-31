@@ -524,7 +524,8 @@
         axis_step: axis_step, 
         dot_thickness: dot_thickness, 
         axis_dot_scale: rear_axis_dot_scale, 
-        axis_text_size: rear_axis_text_size
+        axis_text_size: rear_axis_text_size,
+        axis_text_offset: axis_text_offset,
       )
 
       render-parametric-curve(curve_points: curve_points, color_func: color_func)
@@ -536,6 +537,7 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
+        axis_label_offset: axis_label_offset
       )
 
       })
@@ -642,6 +644,7 @@
         dot_thickness: dot_thickness, 
         axis_dot_scale: rear_axis_dot_scale, 
         axis_text_size: rear_axis_text_size,
+        axis_text_offset: axis_text_offset,
       )
 
       let order = 0
@@ -681,6 +684,7 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
+        axis_label_offset: axis_label_offset
       )
 
       })
@@ -712,7 +716,7 @@
   let vectors = ()
   for xregion in range(xaxis_low * samples, xaxis_high * samples, step:render_step) {
     for yregion in range(yaxis_low * samples, yaxis_high * samples, step: render_step) {
-      for zregion in range(yaxis_low * samples, yaxis_high * samples, step: render_step) {
+      for zregion in range(zaxis_low * samples, zaxis_high * samples, step: render_step) {
         let x = xregion * step
         let y = yregion * step
         let z = zregion * step
@@ -751,12 +755,23 @@
 
 #let render-3d-vector-field(
   vectors,
-  color_func
+  color-func,
+  xdomain:(0,10),
+  ydomain:(0,10),
+  zdomain:(0,10),
+  vector_size: 0.02em,
 ) = {
   import draw: *
 
   for i in range(vectors.len()) {
-    line(vectors.at(i).at(0),vectors.at(i).at(1),stroke:0.02em, mark: (end: "straight"))
+    line(vectors.at(i).at(0),vectors.at(i).at(1),stroke: (vector_size + color-func(
+          vectors.at(i).at(0).at(0), 
+          vectors.at(i).at(0).at(1), 
+          vectors.at(i).at(0).at(2), 
+          xdomain.at(0), xdomain.at(1), 
+          ydomain.at(0), ydomain.at(1),
+          zdomain.at(0), zdomain.at(1)
+        )), mark: (end: "straight"))
   }
 }
 
@@ -780,7 +795,8 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
-  rotation_matrix: ((-2, 2, 4), (0, -1, 0))
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
+  vector_size: 0.02em,
   ) = {
     context[#canvas({
       import draw: *
@@ -806,8 +822,8 @@
         i_func,
         j_func, 
         k_func,  
-        render_step: 1,
-        samples: 1,
+        render_step: render_step,
+        samples: samples,
         xdomain:xdomain,
         ydomain: ydomain,
         zdomain: zdomain,
@@ -824,11 +840,16 @@
         dot_thickness: dot_thickness, 
         axis_dot_scale: rear_axis_dot_scale, 
         axis_text_size: rear_axis_text_size,
+        axis_text_offset: axis_text_offset,
       )
 
       render-3d-vector-field(
         vectors,
-        color-func
+        color-func,
+        xdomain: xdomain,
+        ydomain: ydomain,
+        zdomain: zdomain,
+        vector_size: vector_size,
       ) 
 
       render-front-axis(
@@ -837,6 +858,7 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
+        axis_label_offset: axis_label_offset
       )
 
       })

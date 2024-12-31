@@ -149,19 +149,19 @@ $ z= x^2 + y^2 $
 #pagebreak()
 
 == 3D Vector Field
-$ p(x,y,z) = (x+0.2) i + (y+0.2) j + k $
+$ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
 
-#let size = 5
-#let scale_factor = 0.3
-#let (xscale,yscale,zscale) = (0.3,0.3,0.05)
+#let size = 10
+#let scale_factor = 0.12
+#let (xscale,yscale,zscale) = (0.3,0.3,0.3)
 
 #let i_func(x,y,z) = x + 0.5
-#let j_func(x,y,z) = y +0.5
-#let k_func(x,y,z) = z
+#let j_func(x,y,z) = y + 0.5
+#let k_func(x,y,z) = z + 1
 
 
 #let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
+  return purple.darken(z/(z_hi - z_lo) * 100%) 
 }
 
 #figure(
@@ -170,16 +170,17 @@ $ p(x,y,z) = (x+0.2) i + (y+0.2) j + k $
     j_func,
     k_func,
     color-func: color-func,
-    subdivisions: 5,
-    subdivision_mode: "increase",
+    subdivisions: 3,
+    subdivision_mode: "decrease",
     scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
     xdomain: (-size,size),
     ydomain:  (-size,size),
-    zdomain: (-size,size),
+    zdomain: (0,size),
     // pad_high: (0,0,2),
-    // pad_low: (0,0,0),
-    axis_label_offset: (0.2,0.1,0.1),
-    axis_text_offset: 0.045,
+    rotation_matrix: ((-1.5, 1.2, 4), (0, -1, 0)),
+    axis_label_offset: (0.4,0.2,0.2),
+    axis_text_offset: 0.08,
+    vector_size: 0.1em,
   )
 )
 
@@ -190,6 +191,8 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
 #let xfunc(t) = 15*calc.cos(t)
 #let yfunc(t) = calc.sin(t)
 #let zfunc(t) = t
+
+#let size = 5
 
 #figure(
   plot-3d-parametric-curve(

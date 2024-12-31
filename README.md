@@ -144,33 +144,36 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
 ```typ
 #import "@preview/plotsy-3d:0.1.0": plot-3d-vector-field
 
-#let size = 5
-#let scale_factor = 0.3
-#let (xscale,yscale,zscale) = (0.3,0.3,0.05)
+#let size = 10
+#let scale_factor = 0.12
+#let (xscale,yscale,zscale) = (0.3,0.3,0.3)
 #let i_func(x,y,z) = x + 0.5
-#let j_func(x,y,z) = y +0.5
-#let k_func(x,y,z) = z
+#let j_func(x,y,z) = y + 0.5
+#let k_func(x,y,z) = z + 1
 #let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
+  return purple.darken(z/(z_hi - z_lo) * 100%) 
 }
 
 == 3D Vector Field
-$ p(x,y,z) = (x+0.2) i + (y+0.2) j + k $
-#plot-3d-vector-field(
-  i_func,
-  j_func,
-  k_func,
-  color-func: color-func,
-  subdivisions: 5,
-  subdivision_mode: "increase",
-  scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
-  xdomain: (-size,size),
-  ydomain:  (-size,size),
-  zdomain: (-size,size),
-  pad_high: (0,0,0),
-  pad_low: (0,0,0),
-  axis_label_offset: (0.2,0.1,0.1),
-  axis_text_offset: 0.045,
+$ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
+#figure(
+  plot-3d-vector-field(
+    i_func,
+    j_func,
+    k_func,
+    color-func: color-func,
+    subdivisions: 3,
+    subdivision_mode: "decrease",
+    scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
+    xdomain: (-size,size),
+    ydomain:  (-size,size),
+    zdomain: (0,size),
+    // pad_high: (0,0,2),
+    rotation_matrix: ((-1.5, 1.2, 4), (0, -1, 0)),
+    axis_label_offset: (0.4,0.2,0.2),
+    axis_text_offset: 0.08,
+    vector_size: 0.1em,
+  )
 )
 ```
 
