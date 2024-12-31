@@ -15,6 +15,11 @@
     <img src="examples/examples4.png" style="width:49%"  >
 </p>
 
+<p>
+    <img src="examples/examples5.png" style="width:49%" >
+    <img src="examples/examples6.png" style="width:49%"  >
+</p>
+
 ## Features:
 
 * 3D Function plotting of the form  `z = f(x,y)`
@@ -26,71 +31,79 @@ See **Usage** or `examples/examples.typ` for the code
 
 
 ## Future Plans (contributors welcome):
-- [ ] Vector Field Plotting
-- [ ] Better way to compose multiple renders onto one axis
+- [ ] Nicer way to draw vectors
+- [ ] Better way to handle render order
 - [ ] User Manual
-- [ ] Make the code nicer
+- [ ] Make the code and api nicer
 
 ## Usage
 
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
 ### Parametric Function Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": *
+#import "@preview/plotsy-3d:0.1.0": plot-3d-parametric-curve
 
 #let xfunc(t) = 15*calc.cos(t)
 #let yfunc(t) = calc.sin(t)
 #let zfunc(t) = t
-// for all options see the library file
-#plot_3d_parametric_curve(
-    xfunc,
-    yfunc,
-    zfunc,
-    subdivisions:30, // increase subidivisions ie resolution
-    scale_dim: (0.03,0.05,0.05), // dimension scaling, plots also auto scale with font size
-    tdomain:(0,10), 
-    axis_step: (5,5,5),
-    dot_thickness: 0.05em,
-    front_axis_thickness: 0.1em,
-    front_axis_dot_scale: (0.04, 0.04),
-    rear_axis_dot_scale: (0.08,0.08),
-    rear_axis_text_size: 0.5em,
-    axis_label_size: 1.5em,
-    rotation_matrix: ((-2, 2, 4), (0, -1, 0)) // viewport rotation matrix from cetz
+
+== Parametric Curve
+$ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
+#plot-3d-parametric-curve(
+  xfunc,
+  yfunc,
+  zfunc,
+  subdivisions:30, //number of line segments per unit
+  scale_dim: (0.03,0.05,0.05), // relative and global scaling
+  tdomain:(0,10), 
+  axis_step: (5,5,5), // adjust distance between x, y, z number labels
+  dot_thickness: 0.05em, 
+  front_axis_thickness: 0.1em,
+  front_axis_dot_scale: (0.04, 0.04),
+  rear_axis_dot_scale: (0.08,0.08),
+  rear_axis_text_size: 0.5em,
+  axis_label_size: 1.5em,
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0)) // matrix.transform-rotate-dir() from cetz
 )
 ```
 
 ### 3D Surface Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": *
+#import "@preview/plotsy-3d:0.1.0": plot-3d-surface
 
-#let size = 5
-#let scale_factor = 0.3x
-#let (xscale,yscale,zscale) = (0.3,0.3,0.05)
-
-#let func(x,y) = y*calc.sin(x) -x*calc.cos(y) 
-#let color_func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
+#let size = 10
+#let scale_factor = 0.11
+#let (xscale,yscale,zscale) = (0.3,0.3,0.02)
+#let scale_dim = (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor)  
+#let func(x,y) = x*x + y*y
+#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
+  return blue.transparentize(20%).darken((y/(y_hi - y_lo))*100%).lighten((x/(x_hi - x_lo)) * 50%)
 }
-// for all options see the library file
-#plot_3d_surface(
-    func,
-    color_func: color_func,
-    subdivisions: 5,
-    subdivision_mode: "increase",
-    scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
-    xdomain: (-size,size), // plotting domain
-    ydomain:  (-size,size), // plotting domain
-    pad_high: (0,0,2), // increase axis size higher than domain 
-    pad_low: (0,0,0), // increase axis size lower than domain 
-    axis_label_offset: (0.2,0.1,0.1), // move the x y z further from axis
-    axis_text_offset: 0.045, // move the numbers further from axis
+
+== 3D Surface
+$ z= x^2 + y^2 $
+#plot-3d-surface(
+  func,
+  color-func: color-func,
+  subdivisions: 2,
+  subdivision_mode: "decrease",
+  scale_dim: scale_dim,
+  xdomain: (-size,size),
+  ydomain:  (-size,size),
+  pad_high: (0,0,0), // padding around the domain with no function displayed
+  pad_low: (0,0,5),
+  axis_step: (3,3,75),
+  dot_thickness: 0.05em,
+  front_axis_thickness: 0.1em,
+  front_axis_dot_scale: (0.05,0.05),
+  rear_axis_dot_scale: (0.08,0.08),
+  rear_axis_text_size: 0.5em,
+  axis_label_size: 1.5em,
 )
 ```
 
 ### Parametric Surface Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": *
+#import "@preview/plotsy-3d:0.1.0": plot-3d-parametric-surface
 
 #let xfunc(u,v) = u*calc.sin(v) 
 #let yfunc(u,v) = u*calc.cos(v) 
@@ -105,38 +118,71 @@ A more in-depth description of usage. Any template arguments? A complicated exam
 
 == Parametric Surface
 $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
-#figure(
-  plot-3d-parametric-surface(
-    xfunc,
-    yfunc,
-    zfunc,
-    xaxis: (-5,5), // set the minimum axis size, scales with function if needed
-    yaxis: (-5,5),
-    zaxis: (0,5),
-    color-func: color-func,
-    subdivisions:5, 
-    scale_dim: scale_dim,
-    udomain:(0, calc.pi+1), // note this gets truncated to an integer
-    vdomain:(0, 2*calc.pi+1), // note this gets truncated to an integer
-    axis_step: (5,5,5),
-    dot_thickness: 0.05em,
-    front_axis_thickness: 0.1em,
-    front_axis_dot_scale: (0.04, 0.04),
-    rear_axis_dot_scale: (0.08,0.08),
-    rear_axis_text_size: 0.5em,
-    axis_label_size: 1.5em,
-  )
+#plot-3d-parametric-surface(
+  xfunc,
+  yfunc,
+  zfunc,
+  xaxis: (-5,5), // set the minimum axis size, scales with function if needed
+  yaxis: (-5,5),
+  zaxis: (0,5),
+  color-func: color-func,
+  subdivisions:5, 
+  scale_dim: scale_dim,
+  udomain:(0, calc.pi+1), // note this gets truncated to an integer
+  vdomain:(0, 2*calc.pi+1), // note this gets truncated to an integer
+  axis_step: (5,5,5),
+  dot_thickness: 0.05em,
+  front_axis_thickness: 0.1em,
+  front_axis_dot_scale: (0.04, 0.04),
+  rear_axis_dot_scale: (0.08,0.08),
+  rear_axis_text_size: 0.5em,
+  axis_label_size: 1.5em,
 )
 ```
+
+### Vector Field Plotting
+```typ
+#import "@preview/plotsy-3d:0.1.0": plot-3d-vector-field
+
+#let size = 5
+#let scale_factor = 0.3
+#let (xscale,yscale,zscale) = (0.3,0.3,0.05)
+#let i_func(x,y,z) = x + 0.5
+#let j_func(x,y,z) = y +0.5
+#let k_func(x,y,z) = z
+#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
+  return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
+}
+
+== 3D Vector Field
+$ p(x,y,z) = (x+0.2) i + (y+0.2) j + k $
+#plot-3d-vector-field(
+  i_func,
+  j_func,
+  k_func,
+  color-func: color-func,
+  subdivisions: 5,
+  subdivision_mode: "increase",
+  scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
+  xdomain: (-size,size),
+  ydomain:  (-size,size),
+  zdomain: (-size,size),
+  pad_high: (0,0,0),
+  pad_low: (0,0,0),
+  axis_label_offset: (0.2,0.1,0.1),
+  axis_text_offset: 0.045,
+)
+```
+
 ### Custom Plotting
 For custom combinations of plots and lines, you can make a copy of the relevant plot function from `plotsy-3d.typ` and add multiple plots onto the same axis in the same cetz canvas using the backend render functions.
 
 ## More Examples
 
-<p>
+<!-- <p>
     <img src="examples/examples5.png" style="width:49%" >
     <img src="examples/examples6.png" style="width:49%"  >
-</p>
+</p> -->
 
 <p>
     <img src="examples/examples7.png" style="width:49%" >
@@ -145,12 +191,8 @@ For custom combinations of plots and lines, you can make a copy of the relevant 
 
 <p>
     <img src="examples/examples9.png" style="width:49%" >
-    <img src="examples/examples10.png" style="width:49%" >
 
 </p>
-
-## Build Examples
-`typst compile examples/examples.typ --root . examples/examples{p}.png`
 
 ## Star History
 
@@ -169,4 +211,3 @@ Initial release
 * 3D Function plotting of the form  `z = f(x,y)`
 * Parametric curve plotting of the form `x(t), y(t), z(t)`
 * Parametric function plotting of the form `x(u,v), y(u,v), z(u,v)`
-
