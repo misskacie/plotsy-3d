@@ -686,3 +686,159 @@
       })
     ]
 }
+
+#let get-vector-field-vectors(
+  i_func,
+  j_func, 
+  k_func,  
+  render_step: 1,
+  samples: 1,
+  xdomain:(0,10),
+  ydomain: (0,10),
+  zdomain: (0,10),
+) = {
+
+  let (xaxis_low,xaxis_high) = xdomain
+  let (yaxis_low,yaxis_high) = ydomain
+  let (zaxis_low,zaxis_high) = zdomain
+
+    let xcurve_lo = 0
+    let ycurve_lo = 0
+    let zcurve_lo = 0
+    let xcurve_hi = 0
+    let ycurve_hi = 0
+    let zcurve_hi = 0
+  let step = 1/samples
+  let vectors = ()
+  for xregion in range(xaxis_low * samples, xaxis_high * samples, step:render_step) {
+    for yregion in range(yaxis_low * samples, yaxis_high * samples, step: render_step) {
+      for zregion in range(yaxis_low * samples, yaxis_high * samples, step: render_step) {
+        let x = xregion * step
+        let y = yregion * step
+        let z = zregion * step
+        let end_x = i_func(x,y,z)
+        let end_y = j_func(x,y,z)
+        let end_z = k_func(x,y,z)
+        vectors.push( (
+          (x, y, z), 
+          (end_x, end_y, end_z)
+          )
+        )
+        if (end_x > xcurve_hi) {
+        xcurve_hi = calc.ceil(end_x)
+        }
+        if (end_x < xcurve_lo) {
+          xcurve_lo = calc.floor(end_x)
+        }
+        if (end_y > ycurve_hi) {
+          ycurve_hi = calc.ceil(end_y)
+        }
+        if (end_y < ycurve_lo) {
+          ycurve_lo = calc.floor(end_y)
+        }
+        if (end_z > zcurve_hi) {
+          zcurve_hi = calc.ceil(end_z)
+        }
+        if (end_z< zcurve_lo) {
+          zcurve_lo = calc.floor(end_z)
+        }
+      }
+    }
+  }
+   return (vectors, (xcurve_lo, xcurve_hi), (ycurve_lo, ycurve_hi), (zcurve_lo, zcurve_hi))
+}
+
+
+#let render-3d-vector-field(
+  vectors,
+  color_func
+) = {
+  import draw: *
+
+  for i in range(vectors.len()) {
+    line(vectors.at(i).at(0),vectors.at(i).at(1),stroke:0.02em, mark: (end: "straight"))
+  }
+}
+
+#let plot-3d-vector-field(
+  i_func,
+  j_func,
+  k_func,
+  color-func: default-color-func,
+  subdivisions:1,
+  subdivision_mode: "increase",
+  scale_dim: (1,1,0.5),
+  xdomain:(0,10),
+  ydomain:(0,10),
+  zdomain:(0,10),
+  axis_step: (5,5,5),
+  dot_thickness: 0.05em,
+  front_axis_thickness: 0.1em,
+  front_axis_dot_scale: (0.05, 0.05),
+  rear_axis_dot_scale: (0.08,0.08),
+  rear_axis_text_size: 0.5em,
+  axis_label_size: 1.5em,
+  axis_label_offset: (0.3,0.2,0.15),
+  axis_text_offset: 0.075,
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0))
+  ) = {
+    context[#canvas({
+      import draw: *
+      let (xscale, yscale, zscale) = scale_dim
+      set-transform(matrix.transform-rotate-dir(rotation_matrix.at(0),rotation_matrix.at(1)))
+      scale(x: xscale*text.size.pt(), y: yscale*text.size.pt(), z: zscale*text.size.pt())
+      
+
+      let (xaxis_low,xaxis_high) = xdomain
+      let (yaxis_low,yaxis_high) = ydomain
+      let (zaxis_low,zaxis_high) = zdomain
+
+        let samples = 1
+      let render_step = 1
+      if(subdivision_mode == "increase"){
+        samples = subdivisions
+      } else if (subdivision_mode == "decrease") {
+        render_step = subdivisions
+      }
+
+
+      let (vectors, (xsurf_lo, xsurf_hi), (ysurf_lo, ysurf_hi), (zsurf_lo, zsurf_hi)) = get-vector-field-vectors(
+        i_func,
+        j_func, 
+        k_func,  
+        render_step: 1,
+        samples: 1,
+        xdomain:xdomain,
+        ydomain: ydomain,
+        zdomain: zdomain,
+      )
+
+      let xdomain = (xsurf_lo, xsurf_hi)
+      let ydomain = (ysurf_lo, ysurf_hi)
+      let zdomain = (zsurf_lo, zsurf_hi)
+
+      render-rear-axis(
+        axis_low: (calc.min(xsurf_lo, xaxis_low),calc.min(ysurf_lo, yaxis_low), calc.min(zsurf_lo, zaxis_low)), 
+        axis_high: (calc.max(xsurf_hi, xaxis_high),calc.max(ysurf_hi, yaxis_high), calc.max(zsurf_hi, zaxis_high)), 
+        axis_step: axis_step, 
+        dot_thickness: dot_thickness, 
+        axis_dot_scale: rear_axis_dot_scale, 
+        axis_text_size: rear_axis_text_size,
+      )
+
+      render-3d-vector-field(
+        vectors,
+        color-func
+      ) 
+
+      render-front-axis(
+        axis_low: (calc.min(xsurf_lo, xaxis_low),calc.min(ysurf_lo, yaxis_low), calc.min(zsurf_lo, zaxis_low)), 
+        axis_high: (calc.max(xsurf_hi, xaxis_high),calc.max(ysurf_hi, yaxis_high), calc.max(zsurf_hi, zaxis_high)), 
+        axis_label_size: axis_label_size,
+        front_axis_dot_scale: front_axis_dot_scale,
+        front_axis_thickness: front_axis_thickness,
+      )
+
+      })
+    ]
+}

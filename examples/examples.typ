@@ -77,32 +77,7 @@ $ x(u,v) = 6 cos(u) sin(v), space y(u,v)= 6 sin(u) sin(v), space z(u,v)= 6 cos(v
 )
 
 #pagebreak()
-== Parametric Curve
-$ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
 
-#let xfunc(t) = 15*calc.cos(t)
-#let yfunc(t) = calc.sin(t)
-#let zfunc(t) = t
-
-#figure(
-  plot-3d-parametric-curve(
-    xfunc,
-    yfunc,
-    zfunc,
-    subdivisions:30,
-    scale_dim: (0.03,0.05,0.05),
-    tdomain:(0,10),
-    axis_step: (5,5,5),
-    dot_thickness: 0.05em,
-    front_axis_thickness: 0.1em,
-    front_axis_dot_scale: (0.04, 0.04),
-    rear_axis_dot_scale: (0.08,0.08),
-    rear_axis_text_size: 0.5em,
-    axis_label_size: 1.5em,
-    rotation_matrix: ((-2, 2, 4), (0, -1, 0)) 
-  )
-)
-#pagebreak()
 == 3D Surface 
 $ z=y sin(x) - x cos(y) $
 
@@ -131,8 +106,9 @@ $ z=y sin(x) - x cos(y) $
   )
 )
 
-
 #pagebreak()
+
+
 == 3D Surface
 $ z= x^2 + y^2 $
 #let size = 10
@@ -171,8 +147,77 @@ $ z= x^2 + y^2 $
 #let func(x,y) = x*x
 
 #pagebreak()
+
+== 3D Vector Field
+$ p(x,y,z) = (x+0.2) i + (y+0.2) j + k $
+
+#let size = 5
+#let scale_factor = 0.3
+#let (xscale,yscale,zscale) = (0.3,0.3,0.05)
+
+#let i_func(x,y,z) = x + 0.5
+#let j_func(x,y,z) = y +0.5
+#let k_func(x,y,z) = z
+
+
+#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
+  return purple.transparentize(20%).darken((z/(z_hi - z_lo)) * 300%)
+}
+
+#figure(
+  plot-3d-vector-field(
+    i_func,
+    j_func,
+    k_func,
+    color-func: color-func,
+    subdivisions: 5,
+    subdivision_mode: "increase",
+    scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
+    xdomain: (-size,size),
+    ydomain:  (-size,size),
+    zdomain: (-size,size),
+    // pad_high: (0,0,2),
+    // pad_low: (0,0,0),
+    axis_label_offset: (0.2,0.1,0.1),
+    axis_text_offset: 0.045,
+  )
+)
+
+#pagebreak()
+== Parametric Curve
+$ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
+
+#let xfunc(t) = 15*calc.cos(t)
+#let yfunc(t) = calc.sin(t)
+#let zfunc(t) = t
+
+#figure(
+  plot-3d-parametric-curve(
+    xfunc,
+    yfunc,
+    zfunc,
+    subdivisions:30,
+    scale_dim: (0.03,0.05,0.05),
+    tdomain:(0,10),
+    axis_step: (5,5,5),
+    dot_thickness: 0.05em,
+    front_axis_thickness: 0.1em,
+    front_axis_dot_scale: (0.04, 0.04),
+    rear_axis_dot_scale: (0.08,0.08),
+    rear_axis_text_size: 0.5em,
+    axis_label_size: 1.5em,
+    rotation_matrix: ((-2, 2, 4), (0, -1, 0)) 
+  )
+)
+#pagebreak()
+
+
 == 3D Surface
 $ z= x^2 $
+#let size = 10
+#let scale_factor = 0.10
+#let (xscale,yscale,zscale) = (0.3,0.3,0.03)
+#let scale_dim = (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor)  
 
 #let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
   return olive.transparentize(20%).darken(10%).lighten((z/(z_lo - z_hi)) * 100%) 
@@ -288,3 +333,5 @@ $ z = 10x $
     axis_label_size: 1.5em,
   )
 )
+
+
