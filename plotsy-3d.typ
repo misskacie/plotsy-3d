@@ -380,7 +380,8 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
-  rotation_matrix: ((-2, 2, 4), (0, -1, 0))
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue)
   ) = {
     let samples = 1
     let render_step = 1
@@ -454,7 +455,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        xyz-colors: xyz-colors
       )
 
       })
@@ -496,7 +498,8 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
-  rotation_matrix: ((-2, 2, 4), (0, -1, 0))
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue)
   ) = {
     context[#canvas({
       import draw: *
@@ -537,7 +540,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        xyz-colors: xyz-colors
       )
 
       })
@@ -610,7 +614,8 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
-  rotation_matrix: ((-2, 2, 4), (0, -1, 0))
+  rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue)
   ) = {
     context[#canvas({
       import draw: *
@@ -684,7 +689,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        xyz-colors: xyz-colors
       )
 
       })
@@ -797,6 +803,7 @@
   axis_text_offset: 0.075,
   rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
   vector_size: 0.02em,
+  xyz-colors: (red,green,blue)
   ) = {
     context[#canvas({
       import draw: *
@@ -858,7 +865,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        xyz-colors: xyz-colors
       )
 
       })
