@@ -138,6 +138,7 @@ $ z= x^2 + y^2 $
     rear_axis_dot_scale: (0.08,0.08),
     rear_axis_text_size: 0.5em,
     axis_label_size: 1.5em,
+    axis_labels: ($x$, $y$, $x^2 + y^2$)
   )
 )
 #let size = 10

@@ -10,7 +10,7 @@
   axis_dot_scale: (0.08,0.08),
   dot_thickness:0.05em,
   axis_text_size: 1em,
-  axis_text_offset: 0.07,
+  axis_text_offset: 0.07
   ) = {
     import draw: *
     let (xaxis_low,yaxis_low,zaxis_low) = axis_low
@@ -105,6 +105,7 @@
   xyz-colors: (red,green,blue),
   axis_label_size:1.5em,
   axis_label_offset: (0.3,0.2,0.15),
+  axis_labels: ($x$, $y$, $z$)
   ) = {
     import draw: *
 
@@ -154,23 +155,29 @@
       xaxis_low + (xaxis_high - xaxis_low)/2, 
       yaxis_high + axis_label_offset.at(0) * text.size.pt(),
       zaxis_low
-      ), text(size:axis_label_size)[$x$]
+      ),
+      anchor: "north",
+      text(size:axis_label_size)[#axis_labels.at(0)]
     )
 
     content((
       xaxis_high + axis_label_offset.at(1) * text.size.pt(),
       yaxis_low + (yaxis_high - yaxis_low)/2, 
       zaxis_low
-      ), text(size:axis_label_size)[$y$]
+      ), 
+      anchor: "north-west",
+      text(size:axis_label_size)[#axis_labels.at(1)]
+      
       )
 
     content((
       xaxis_low - axis_label_offset.at(2) * text.size.pt(),
       yaxis_high,
       zaxis_low + (zaxis_high - zaxis_low)/2
-      ), text(size:axis_label_size)[$z$]
+      ), 
+      anchor: "east",
+      text(size:axis_label_size)[#axis_labels.at(2)]
     )
-
 }
 
 #let get-surface-zpoints(
@@ -307,8 +314,6 @@
     return (surface_points, (xsurf_lo, xsurf_hi), (ysurf_lo, ysurf_hi), (zsurf_lo, zsurf_hi))
 }
 
-
-
 #let get-parametric-curve-points(
   x-func,
   y-func,
@@ -379,6 +384,7 @@
   rear_axis_text_size: 0.5em,
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
+  axis_labels: ($x$, $y$, $z$),
   axis_text_offset: 0.075,
   rotation_matrix: ((-2, 2, 4), (0, -1, 0))
   ) = {
@@ -454,7 +460,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        axis_labels: axis_labels
       )
 
       })
@@ -496,6 +503,7 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
+  axis_labels: ($x$, $y$, $z$),
   rotation_matrix: ((-2, 2, 4), (0, -1, 0))
   ) = {
     context[#canvas({
@@ -537,7 +545,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        axis_labels: axis_labels
       )
 
       })
@@ -610,6 +619,7 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
+  axis_labels: ($x$, $y$, $z$),
   rotation_matrix: ((-2, 2, 4), (0, -1, 0))
   ) = {
     context[#canvas({
@@ -684,7 +694,8 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        axis_labels: axis_labels
       )
 
       })
@@ -795,6 +806,7 @@
   axis_label_size: 1.5em,
   axis_label_offset: (0.3,0.2,0.15),
   axis_text_offset: 0.075,
+  axis_labels: ($x$, $y$, $z$),
   rotation_matrix: ((-2, 2, 4), (0, -1, 0)),
   vector_size: 0.02em,
   ) = {
@@ -858,9 +870,9 @@
         axis_label_size: axis_label_size,
         front_axis_dot_scale: front_axis_dot_scale,
         front_axis_thickness: front_axis_thickness,
-        axis_label_offset: axis_label_offset
+        axis_label_offset: axis_label_offset,
+        axis_labels: axis_labels
       )
-
       })
     ]
 }
