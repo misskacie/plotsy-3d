@@ -1,5 +1,5 @@
 # The `plotsy-3d` Package
-<div align="center">Version 0.1.0</div>
+<div align="center">Version 0.2.0 DEV</div>
 
 
 **plotsy-3d** is a [Typst](https://github.com/typst/typst) package for rendering 3D objects built on top of [CeTZ](https://github.com/cetz-package/cetz). Similar functionality to pgfplots for LaTeX but currently less developed.
@@ -33,6 +33,7 @@ See **Usage** or `examples/examples.typ` for the code
 ## Future Plans (contributors welcome):
 - [ ] Nicer way to draw vectors
 - [ ] Better way to handle render order
+- [ ] Function to generate 2D plots for XZ XY YZ projections of any 3d render
 - [ ] User Manual
 - [ ] Make the code and api nicer
 
@@ -53,16 +54,16 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
   yfunc,
   zfunc,
   subdivisions:30, //number of line segments per unit
-  scale_dim: (0.03,0.05,0.05), // relative and global scaling
+  scale-dim: (0.03,0.05,0.05), // relative and global scaling
   tdomain:(0,10), 
-  axis_step: (5,5,5), // adjust distance between x, y, z number labels
-  dot_thickness: 0.05em, 
-  front_axis_thickness: 0.1em,
-  front_axis_dot_scale: (0.04, 0.04),
-  rear_axis_dot_scale: (0.08,0.08),
-  rear_axis_text_size: 0.5em,
-  axis_label_size: 1.5em,
-  rotation_matrix: ((-2, 2, 4), (0, -1, 0)) // matrix.transform-rotate-dir() from cetz
+  axis-step: (5,5,5), // adjust distance between x, y, z number labels
+  dot-thickness: 0.05em, 
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.04, 0.04),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-label-size: 1.5em,
+  rotation-matrix: ((-2, 2, 4), (0, -1, 0)) // matrix.transform-rotate-dir() from cetz
 )
 ```
 
@@ -71,12 +72,12 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
 #import "@preview/plotsy-3d:0.1.0": plot-3d-surface
 
 #let size = 10
-#let scale_factor = 0.11
+#let scale-factor = 0.11
 #let (xscale,yscale,zscale) = (0.3,0.3,0.02)
-#let scale_dim = (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor)  
+#let scale-dim = (xscale*scale-factor,yscale*scale-factor, zscale*scale-factor)  
 #let func(x,y) = x*x + y*y
-#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return blue.transparentize(20%).darken((y/(y_hi - y_lo))*100%).lighten((x/(x_hi - x_lo)) * 50%)
+#let color-func(x, y, z, x-lo,x-hi,y-lo,y-hi,z-lo,z-hi) = {
+  return blue.transparentize(20%).darken((y/(y-hi - y-lo))*100%).lighten((x/(x-hi - x-lo)) * 50%)
 }
 
 == 3D Surface
@@ -85,19 +86,19 @@ $ z= x^2 + y^2 $
   func,
   color-func: color-func,
   subdivisions: 2,
-  subdivision_mode: "decrease",
-  scale_dim: scale_dim,
+  subdivision-mode: "decrease",
+  scale-dim: scale-dim,
   xdomain: (-size,size),
   ydomain:  (-size,size),
-  pad_high: (0,0,0), // padding around the domain with no function displayed
-  pad_low: (0,0,5),
-  axis_step: (3,3,75),
-  dot_thickness: 0.05em,
-  front_axis_thickness: 0.1em,
-  front_axis_dot_scale: (0.05,0.05),
-  rear_axis_dot_scale: (0.08,0.08),
-  rear_axis_text_size: 0.5em,
-  axis_label_size: 1.5em,
+  pad-high: (0,0,0), // padding around the domain with no function displayed
+  pad-low: (0,0,5),
+  axis-step: (3,3,75),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.05,0.05),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-label-size: 1.5em,
 )
 ```
 
@@ -108,13 +109,13 @@ $ z= x^2 + y^2 $
 #let xfunc(u,v) = u*calc.sin(v) 
 #let yfunc(u,v) = u*calc.cos(v) 
 #let zfunc(u,v) = u
-#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return purple.transparentize(20%).lighten((z/(z_hi - z_lo)) * 80%)
+#let color-func(x, y, z, x-lo,x-hi,y-lo,y-hi,z-lo,z-hi) = {
+  return purple.transparentize(20%).lighten((z/(z-hi - z-lo)) * 80%)
 
 }
-#let scale_factor = 0.25
+#let scale-factor = 0.25
 #let (xscale,yscale,zscale) = (0.3,0.2,0.3)
-#let scale_dim = (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor)  
+#let scale-dim = (xscale*scale-factor,yscale*scale-factor, zscale*scale-factor)  
 
 == Parametric Surface
 $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
@@ -127,16 +128,16 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
   zaxis: (0,5),
   color-func: color-func,
   subdivisions:5, 
-  scale_dim: scale_dim,
+  scale-dim: scale-dim,
   udomain:(0, calc.pi+1), // note this gets truncated to an integer
   vdomain:(0, 2*calc.pi+1), // note this gets truncated to an integer
-  axis_step: (5,5,5),
-  dot_thickness: 0.05em,
-  front_axis_thickness: 0.1em,
-  front_axis_dot_scale: (0.04, 0.04),
-  rear_axis_dot_scale: (0.08,0.08),
-  rear_axis_text_size: 0.5em,
-  axis_label_size: 1.5em,
+  axis-step: (5,5,5),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.04, 0.04),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-label-size: 1.5em,
 )
 ```
 
@@ -145,35 +146,33 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
 #import "@preview/plotsy-3d:0.1.0": plot-3d-vector-field
 
 #let size = 10
-#let scale_factor = 0.12
+#let scale-factor = 0.12
 #let (xscale,yscale,zscale) = (0.3,0.3,0.3)
-#let i_func(x,y,z) = x + 0.5
-#let j_func(x,y,z) = y + 0.5
-#let k_func(x,y,z) = z + 1
-#let color-func(x, y, z, x_lo,x_hi,y_lo,y_hi,z_lo,z_hi) = {
-  return purple.darken(z/(z_hi - z_lo) * 100%) 
+#let i-func(x,y,z) = x + 0.5
+#let j-func(x,y,z) = y + 0.5
+#let k-func(x,y,z) = z + 1
+#let color-func(x, y, z, x-lo,x-hi,y-lo,y-hi,z-lo,z-hi) = {
+  return purple.darken(z/(z-hi - z-lo) * 100%) 
 }
 
 == 3D Vector Field
 $ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
-#figure(
-  plot-3d-vector-field(
-    i_func,
-    j_func,
-    k_func,
+#plot-3d-vector-field(
+    i-func,
+    j-func,
+    k-func,
     color-func: color-func,
     subdivisions: 3,
-    subdivision_mode: "decrease",
-    scale_dim: (xscale*scale_factor,yscale*scale_factor, zscale*scale_factor),
+    subdivision-mode: "decrease",
+    scale-dim: (xscale*scale-factor,yscale*scale-factor, zscale*scale-factor),
     xdomain: (-size,size),
     ydomain:  (-size,size),
     zdomain: (0,size),
-    // pad_high: (0,0,2),
-    rotation_matrix: ((-1.5, 1.2, 4), (0, -1, 0)),
-    axis_label_offset: (0.4,0.2,0.2),
-    axis_text_offset: 0.08,
-    vector_size: 0.1em,
-  )
+    // pad-high: (0,0,2),
+    rotation-matrix: ((-1.5, 1.2, 4), (0, -1, 0)),
+    axis-label-offset: (0.4,0.2,0.2),
+    axis-text-offset: 0.08,
+    vector-size: 0.1em,
 )
 ```
 
@@ -197,6 +196,12 @@ For custom combinations of plots and lines, you can make a copy of the relevant 
 
 </p>
 
+## Build Examples
+From project root:
+`typst compile examples/examples.typ --root .`
+`typst compile examples/examples.typ --root . examples/examples{p}.png`
+
+
 ## Star History
 
 <a href="https://star-history.com/#misskacie/plotsy-3d&Date">
@@ -209,8 +214,7 @@ For custom combinations of plots and lines, you can make a copy of the relevant 
 
 ## Changelog
 
-### V0.1.0
-Initial release
-* 3D Function plotting of the form  `z = f(x,y)`
-* Parametric curve plotting of the form `x(t), y(t), z(t)`
-* Parametric function plotting of the form `x(u,v), y(u,v), z(u,v)`
+### V0.2.0
+* Changed all code to use kebab-case
+* Fixed missing parameters from functions 
+
