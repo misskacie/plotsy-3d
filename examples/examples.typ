@@ -36,6 +36,7 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
     rear-axis-dot-scale: (0.08,0.08),
     rear-axis-text-size: 0.5em,
     axis-label-size: 1.5em,
+    xyz-colors: (red,green,blue),
   )
 )
 
@@ -73,6 +74,7 @@ $ x(u,v) = 6 cos(u) sin(v), space y(u,v)= 6 sin(u) sin(v), space z(u,v)= 6 cos(v
     rear-axis-text-size: 0.5em,
    // rotation-matrix: ((1,0,0), (-1,1,1)),
     axis-label-size: 1.5em,
+    xyz-colors: (black, black, black),
   )
 )
 
@@ -103,6 +105,7 @@ $ z=y sin(x) - x cos(y) $
     pad-low: (0,0,0),
     axis-label-offset: (0.2,0.1,0.1),
     axis-text-offset: 0.045,
+    xyz-colors: (red,green,blue),
   )
 )
 
@@ -139,6 +142,7 @@ $ z= x^2 + y^2 $
     rear-axis-text-size: 0.5em,
     axis-label-size: 1.5em,
     axis-labels: ($x$, $y$, $x^2 + y^2$),
+    xyz-colors: (red,green,blue),
   )
 )
 #let size = 10
@@ -182,6 +186,7 @@ $ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
     axis-label-offset: (0.4,0.2,0.2),
     axis-text-offset: 0.08,
     vector-size: 0.1em,
+    xyz-colors: (red,green,blue),
   )
 )
 
@@ -210,7 +215,8 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
     rear-axis-dot-scale: (0.08,0.08),
     rear-axis-text-size: 0.5em,
     axis-label-size: 1.5em,
-    rotation-matrix: ((-2, 2, 4), (0, -1, 0)) 
+    rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
+    xyz-colors: (red,green,blue),
   )
 )
 #pagebreak()
@@ -245,6 +251,7 @@ $ z= x^2 $
     rear-axis-dot-scale: (0.08,0.2),
     rear-axis-text-size: 0.5em,
     axis-label-size: 1.5em,
+    xyz-colors: (red,green,blue),
   )
 )
 #pagebreak()
@@ -270,6 +277,7 @@ $ z= x^2 $
     rotation-matrix: ((1,0,0), (-1,1,1)),
     axis-label-offset: (0.3,0.2,0.4),
     axis-text-offset: 0.075,
+    xyz-colors: (red,green,blue),
   )
 )
 #pagebreak()
@@ -305,6 +313,7 @@ $ z = - e^x + 20 cos(y) $
     axis-label-size: 1.5em,
     axis-text-offset: 0.04,
     axis-label-offset: (0.1,0.1,0.1),
+    xyz-colors: (red,green,blue),
   )
 )
 
@@ -335,6 +344,7 @@ $ z = 10x $
     rear-axis-dot-scale: (0.08,0.08),
     rear-axis-text-size: 0.5em,
     axis-label-size: 1.5em,
+    xyz-colors: (red,green,blue),
   )
 )
 

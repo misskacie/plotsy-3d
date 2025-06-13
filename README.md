@@ -64,6 +64,7 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
   rear-axis-text-size: 0.5em,
   axis-label-size: 1.5em,
   rotation-matrix: ((-2, 2, 4), (0, -1, 0)) // matrix.transform-rotate-dir() from cetz
+  xyz-colors: (red,green,blue),
 )
 ```
 
@@ -99,6 +100,7 @@ $ z= x^2 + y^2 $
   rear-axis-dot-scale: (0.08,0.08),
   rear-axis-text-size: 0.5em,
   axis-label-size: 1.5em,
+  xyz-colors: (red,green,blue),
 )
 ```
 
@@ -138,6 +140,7 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
   rear-axis-dot-scale: (0.08,0.08),
   rear-axis-text-size: 0.5em,
   axis-label-size: 1.5em,
+  xyz-colors: (red,green,blue),
 )
 ```
 
@@ -173,8 +176,122 @@ $ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
     axis-label-offset: (0.4,0.2,0.2),
     axis-text-offset: 0.08,
     vector-size: 0.1em,
+    xyz-colors: (red,green,blue),
 )
 ```
+
+## Plotting Function Default Parameters
+```typ
+plot-3d-vector-field(
+  i-func,
+  j-func,
+  k-func,
+  color-func: default-color-func,
+  subdivisions:1,
+  subdivision-mode: "increase",
+  scale-dim: (1,1,0.5),
+  xdomain:(0,10),
+  ydomain:(0,10),
+  zdomain:(0,10),
+  axis-step: (5,5,5),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.05, 0.05),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-labels: ($x$, $y$, $z$),
+  axis-label-size: 1.5em,
+  axis-label-offset: (0.3,0.2,0.15),
+  axis-text-offset: 0.075,
+  rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
+  vector-size: 0.02em,
+  xyz-colors: (red, green, blue),
+)
+```
+
+```typ
+plot-3d-parametric-surface(
+  x-func,
+  y-func,
+  z-func,
+  color-func: default-color-func,
+  subdivisions:1,
+  render-order: 0,
+  scale-dim: (1,1,0.5),
+  udomain:(0,1),
+  vdomain:(0,1),
+  xaxis:(0,10),
+  yaxis:(0,10),
+  zaxis:(0,10),
+  axis-step: (5,5,5),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.05, 0.05),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-labels: ($x$, $y$, $z$),
+  axis-label-size: 1.5em,
+  axis-label-offset: (0.3,0.2,0.15),
+  axis-text-offset: 0.075,
+  rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue),
+)
+```
+
+```typ
+plot-3d-parametric-curve(
+  x-func,
+  y-func,
+  z-func,
+  color-func: default-line-color-func,
+  subdivisions:1,
+  scale-dim: (1,1,0.5),
+  tdomain:(0,1),
+  xaxis:(0,10),
+  yaxis:(0,10),
+  zaxis:(0,10),
+  axis-step: (5,5,5),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.05, 0.05),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-labels: ($x$, $y$, $z$),
+  axis-label-size: 1.5em,
+  axis-label-offset: (0.3,0.2,0.15),
+  axis-text-offset: 0.075,
+  rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue),
+)
+```
+
+```typ
+plot-3d-surface(
+  func,
+  func2: none,
+  color-func: default-color-func,
+  subdivision-mode: "increase",
+  subdivisions: 1,
+  scale-dim: (1,1,0.5),
+  xdomain:(0,10),
+  ydomain: (0,10),
+  pad-high: (0,0,0),
+  pad-low: (0,0,0),
+  axis-step: (5,5,5),
+  dot-thickness: 0.05em,
+  front-axis-thickness: 0.1em,
+  front-axis-dot-scale: (0.5, 1),
+  rear-axis-dot-scale: (0.08,0.08),
+  rear-axis-text-size: 0.5em,
+  axis-labels: ($x$, $y$, $z$),
+  axis-label-size: 1.5em,
+  axis-label-offset: (0.3,0.2,0.15),
+  axis-text-offset: 0.075,
+  rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
+  xyz-colors: (red,green,blue)
+)
+```
+
 
 ### Custom Plotting
 For custom combinations of plots and lines, you can make a copy of the relevant plot function from `plotsy-3d.typ` and add multiple plots onto the same axis in the same cetz canvas using the backend render functions.
