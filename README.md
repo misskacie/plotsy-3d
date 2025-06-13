@@ -1,5 +1,5 @@
 # The `plotsy-3d` Package
-<div align="center">Version 0.2.0 DEV</div>
+<div align="center">Version 0.2.0</div>
 
 
 **plotsy-3d** is a [Typst](https://github.com/typst/typst) package for rendering 3D objects built on top of [CeTZ](https://github.com/cetz-package/cetz). Similar functionality to pgfplots for LaTeX but currently less developed.
@@ -41,7 +41,7 @@ See **Usage** or `examples/examples.typ` for the code
 
 ### Parametric Function Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": plot-3d-parametric-curve
+#import "@preview/plotsy-3d:0.2.0": plot-3d-parametric-curve
 
 #let xfunc(t) = 15*calc.cos(t)
 #let yfunc(t) = calc.sin(t)
@@ -69,7 +69,7 @@ $ x(t) = 15 cos(t), space y(t)= sin(t), space z(t)= t $
 
 ### 3D Surface Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": plot-3d-surface
+#import "@preview/plotsy-3d:0.2.0": plot-3d-surface
 
 #let size = 10
 #let scale-factor = 0.11
@@ -104,7 +104,7 @@ $ z= x^2 + y^2 $
 
 ### Parametric Surface Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": plot-3d-parametric-surface
+#import "@preview/plotsy-3d:0.2.0": plot-3d-parametric-surface
 
 #let xfunc(u,v) = u*calc.sin(v) 
 #let yfunc(u,v) = u*calc.cos(v) 
@@ -143,7 +143,7 @@ $ x(u,v) = u sin(v), space y(u,v)= u cos(v), space z(u,v)= u $
 
 ### Vector Field Plotting
 ```typ
-#import "@preview/plotsy-3d:0.1.0": plot-3d-vector-field
+#import "@preview/plotsy-3d:0.2.0": plot-3d-vector-field
 
 #let size = 10
 #let scale-factor = 0.12
@@ -217,4 +217,9 @@ From project root:
 ### V0.2.0
 * Changed all code to use kebab-case
 * Fixed missing parameters from functions 
+### V0.1.0
+* 3D Function plotting of the form z = f(x,y)
+* 3D Parametric curve plotting of the form x(t), y(t), z(t)
+* 3D Parametric function plotting of the form x(u,v), y(u,v), z(u,v)
+* 3D Vector Field Plotting of the form r(x,y,z) = (x) i + (y) j + (z) k
 
