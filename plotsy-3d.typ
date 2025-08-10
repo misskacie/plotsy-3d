@@ -1,7 +1,7 @@
 // plotsy-3d
 // Author: misskacie
 // License: LGPL-3.0-or-later
-#import "@preview/cetz:0.3.1": canvas, draw, matrix
+#import "@preview/cetz:0.4.1": canvas, draw, matrix
 
 #let render-rear-axis(
   axis-low: (0,0,0),
