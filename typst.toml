@@ -1,6 +1,6 @@
 [package]
 name = "plotsy-3d"
-version = "0.2.0"
+version = "0.2.1"
 entrypoint = "plotsy-3d.typ"
 repository = "https://github.com/misskacie/plotsy-3d"
 authors = ["misskacie"]

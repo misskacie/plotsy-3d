@@ -784,14 +784,16 @@
   import draw: *
 
   for i in range(vectors.len()) {
-    line(vectors.at(i).at(0),vectors.at(i).at(1),stroke: (vector-size + color-func(
-          vectors.at(i).at(0).at(0), 
-          vectors.at(i).at(0).at(1), 
-          vectors.at(i).at(0).at(2), 
-          xdomain.at(0), xdomain.at(1), 
-          ydomain.at(0), ydomain.at(1),
-          zdomain.at(0), zdomain.at(1)
-        )), mark: (end: "straight"))
+    if (vectors.at(i).at(0) != vectors.at(i).at(1)) {
+      line(vectors.at(i).at(0),vectors.at(i).at(1),stroke: (vector-size + color-func(
+            vectors.at(i).at(0).at(0), 
+            vectors.at(i).at(0).at(1), 
+            vectors.at(i).at(0).at(2), 
+            xdomain.at(0), xdomain.at(1), 
+            ydomain.at(0), ydomain.at(1),
+            zdomain.at(0), zdomain.at(1)
+          )), mark: (end: "straight"))
+    }
   }
 }
 
