@@ -1,7 +1,7 @@
 // plotsy-3d
 // Author: misskacie
 // License: LGPL-3.0-or-later
-#import "@preview/cetz:0.3.1": canvas, draw, matrix
+#import "@preview/cetz:0.4.1": canvas, draw, matrix
 
 #let render-rear-axis(
   axis-low: (0,0,0),
@@ -719,6 +719,7 @@
   xdomain:(0,10),
   ydomain: (0,10),
   zdomain: (0,10),
+  vector-length-scale: 1,
 ) = {
 
   let (xaxis-low,xaxis-high) = xdomain
@@ -744,7 +745,7 @@
         let end-z = k-func(x,y,z)
         vectors.push( (
           (x, y, z), 
-          (end-x, end-y, end-z)
+          ( (end-x - x)*vector-length-scale + x, (end-y - y)*vector-length-scale + y, (end-z - z)*vector-length-scale +z)
           )
         )
         if (end-x > xcurve-hi) {
@@ -817,6 +818,7 @@
   axis-text-offset: 0.075,
   rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
   vector-size: 0.02em,
+  vector-length-scale: 1,
   xyz-colors: (red, green, blue),
   ) = {
     context[#canvas({
@@ -848,6 +850,7 @@
         xdomain:xdomain,
         ydomain: ydomain,
         zdomain: zdomain,
+        vector-length-scale: vector-length-scale,
       )
 
       let xdomain = (xsurf-lo, xsurf-hi)

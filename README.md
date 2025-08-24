@@ -176,6 +176,7 @@ $ arrow(p)(x,y,z) = (x+0.5) hat(i) + (y+0.5) hat(j) + (z+1) hat(k) $
     axis-label-offset: (0.4,0.2,0.2),
     axis-text-offset: 0.08,
     vector-size: 0.1em,
+    vector-length-scale: 1,
     xyz-colors: (red,green,blue),
 )
 ```
@@ -205,6 +206,7 @@ plot-3d-vector-field(
   axis-text-offset: 0.075,
   rotation-matrix: ((-2, 2, 4), (0, -1, 0)),
   vector-size: 0.02em,
+  vector-length-scale: 1,
   xyz-colors: (red, green, blue),
 )
 ```
