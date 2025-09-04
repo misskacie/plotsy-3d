@@ -1,5 +1,5 @@
 # The `plotsy-3d` Package
-<div align="center">Version 0.2.0</div>
+<div align="center">Version 0.2.1</div>
 
 
 **plotsy-3d** is a [Typst](https://github.com/typst/typst) package for rendering 3D objects built on top of [CeTZ](https://github.com/cetz-package/cetz). Similar functionality to pgfplots for LaTeX but currently less developed.
@@ -333,6 +333,9 @@ From project root:
 
 ## Changelog
 
+### V0.2.1
+* Added vector-length-scale option to plot-3d-vector-field
+* Defensively fix bug in Cetz Line causing zero division error
 ### V0.2.0
 * Changed all code to use kebab-case
 * Fixed missing parameters from functions 
