@@ -263,7 +263,8 @@
   x-func,
   y-func,
   z-func, 
-  subdivisions: 10,
+  usubdivisions: 10,
+  vsubdivisions: 10,
   udomain: (0,1),
   vdomain: (0,1),
   ) = {
@@ -277,15 +278,18 @@
     let xsurf-hi = 0
     let ysurf-hi = 0
     let zsurf-hi = 0
-    let scale-factor = 1/subdivisions
+     
+    let ustep = ((u-high - u-low) / usubdivisions)
+    let uregions = range(usubdivisions+1).map(i => u-low + i * ustep)
     
-    let surface-points = ()
-    for uregion in range(int(u-low * subdivisions), int(u-high * subdivisions)) {
-      let surface-points-temp = ()
-      for vregion in range(int(v-low * subdivisions), int(v-high * subdivisions)) {
-        let u = uregion * scale-factor
-        let v= vregion * scale-factor
+    let vstep = ((v-high - v-low) / vsubdivisions)
+    let vregions = range(vsubdivisions+1).map(i => v-low + i * vstep)
 
+    let surface-points = ()
+    for u in uregions{
+      let surface-points-temp = ()
+      for v in vregions {
+      
         let point = (x-func(u,v), y-func(u,v), z-func(u,v))
         surface-points-temp.push(point)
 
@@ -608,7 +612,8 @@
   y-func,
   z-func,
   color-func: default-color-func,
-  subdivisions:1,
+  usubdivisions:1,
+  vsubdivisions:1,
   render-order: 0,
   scale-dim: (1,1,0.5),
   udomain:(0,1),
@@ -645,7 +650,8 @@
         x-func,
         y-func,
         z-func, 
-        subdivisions: subdivisions,
+        usubdivisions: usubdivisions,
+        vsubdivisions: vsubdivisions,
         udomain: udomain,
         vdomain: vdomain
       )
